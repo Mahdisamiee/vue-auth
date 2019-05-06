@@ -2,6 +2,8 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
+      <router-link to="/login">Login</router-link> |
+      <router-link to="/register">Register</router-link> |
       <router-link to="/about">About</router-link><span v-if="isLoggedIn"> | <a @click="logout">Logout</a></span>
     </div>
     <router-view/>
@@ -18,11 +20,11 @@
       logout: function () {
         this.$store.dispatch('logout')
         .then(() => {
-          this.$router.push('/login')
+          this.$router.push('/login')//or every where that we want.
         })
       }
     },
-    created: function () {
+    created: function () {//handling Expired token cases
       this.$http.interceptors.response.use(undefined, function (err) {//this is a axios request and i just know it is for token :)
         return new Promise(function (resolve, reject) {
           if (err.status === 401 && err.config && !err.config.__isRetryRequest) {

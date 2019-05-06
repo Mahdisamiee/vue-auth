@@ -58,3 +58,11 @@ router.beforeEach((to, from, next)=>{
 })
 
 export default router
+
+
+//some help
+/*
+1-"beforeEach()" conditions
+    we can go on to add any condition to our route. 
+    In our vuex store, we can then define actions to check these conditions and getters to return them.
+*/

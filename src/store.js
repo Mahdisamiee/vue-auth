@@ -18,7 +18,7 @@ export default new Vuex.Store({
       state.status = "loading"
     },
     auth_success(state,token,user){
-      state.status = "seccess"
+      state.status = "success"
       state.token = token
       state.user = user
     },
@@ -44,12 +44,12 @@ export default new Vuex.Store({
           const user = resp.data.user
           localStorage.setItem('token', token)
           axios.defaults.headers.common['Authorization'] = token
-          commit('auth_success', token, user)
+          commit('auth_success', token, user)           //if response was true its return back a token that we need to it in app.vue for logout
           resolve(resp)
         })
         .catch(err => {
           commit('auth_error')
-          localStorage.removeItem('token')
+          localStorage.removeItem('token')              //if response wasnt true we should delete it from local storage to clean token in stroe
           reject(err)
         })
       })
@@ -85,7 +85,7 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    isLoggedIn: state => !!state.token,  // !! is for change every thing to bool type
+    isLoggedIn: state => !!state.token,  // !! is for change every thing to bool type. ->isloggedin is use for app.vue page and logout
     authStatus: state => state.status,
   }
 })
