@@ -41,7 +41,10 @@ const router = new Router({
         requiresAuth: true
       }
     },
-    
+    {
+      path: '*',
+      redirect: '/login'
+    }
   ]
 })
 

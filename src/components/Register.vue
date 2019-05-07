@@ -37,7 +37,7 @@ export default {
             email:"",
             password:"",
             password_confirmation:"",
-            is_admin: null
+            is_admin: null                  //**maybe we have to delete this and make a user admin by defalut.  =>notice that we should make cms page if it is admin
         }
     },
     methods:{
@@ -50,6 +50,7 @@ export default {
             }
             this.$store.dispatch('register' , data)
             .then((result) => {
+                console.log(result)                         //*notice that this is for debugging
                 this.$router.push('/')
             }).catch((err) => {
                 console.log(err)

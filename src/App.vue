@@ -2,14 +2,17 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/register">Register</router-link> |
-      <router-link to="/about">About</router-link><span v-if="isLoggedIn"> | <a @click="logout">Logout</a></span>
+      <router-link v-if="!isLoggedIn" to="/login">Login</router-link> |
+      <router-link v-if="!isLoggedIn" to="/register">Register</router-link> |
+      <router-link to="/about">About</router-link>
+      <span v-if="isLoggedIn"> | <a @click="logout">Logout</a></span>
     </div>
     <router-view/>
   </div>
 </template>
+
 <script>
+
   export default {
     computed : {
       isLoggedIn : function(){ 
@@ -24,11 +27,12 @@
         })
       }
     },
+    //notice that if the program have a problem maybe we should better to delete this code for a while and then check the program**
     created: function () {//handling Expired token cases
       this.$http.interceptors.response.use(undefined, function (err) {//this is a axios request and i just know it is for token :)
         return new Promise(function (resolve, reject) {
           if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
-            this.$store.dispatch(logout)
+            this.$store.dispatch('logout')
           }
           throw err;
         });

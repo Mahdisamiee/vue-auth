@@ -26,6 +26,7 @@ export default {
             let password = this.password;
             this.$store.dispatch('login' , {email , password})
             .then((result) => {                                 //.then is for Promise function that is used in action in store
+                console.log(result)                             //*notice this is for debugging
                 this.$router.push('/')
             }).catch((err) => {
                 console.log(err)
